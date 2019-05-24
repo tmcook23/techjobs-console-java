@@ -2,10 +2,11 @@ package org.launchcode.techjobs.console;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map; // represents key/value pairs within HashMaps
 import java.util.Scanner;
 
 /**
- * Created by LaunchCode
+ * Starter code created by LaunchCode
  */
 public class TechJobs {
 
@@ -61,7 +62,8 @@ public class TechJobs {
                 String searchTerm = in.nextLine();
 
                 if (searchField.equals("all")) {
-                    System.out.println("Search all fields not yet implemented.");
+                    printJobs(JobData.findByValue(searchTerm));
+                    // this is old — System.out.println("Search all fields not yet implemented.");
                 } else {
                     printJobs(JobData.findByColumnAndValue(searchField, searchTerm));
                 }
@@ -108,9 +110,26 @@ public class TechJobs {
         return choiceKeys[choiceIdx];
     }
 
-    // Print a list of jobs
+    // STEP 1: Print a list of all jobs
     private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
 
-        System.out.println("printJobs is not implemented yet");
+        if (someJobs.size() > 0) { // if there are some jobs in the list...
+
+            for (HashMap<String, String> job : someJobs) {
+            // like in Python, for part in whole; job in someJobs
+
+                System.out.println("*****");
+
+                for (Map.Entry<String, String> record : job.entrySet()) {  // Create a nested loop
+                    System.out.println(record.getKey() + ": " + record.getValue());
+                    // this loops through each key-value pair.
+                    // entrySet returns entries
+                }
+                System.out.println("*****");
+                System.out.println("");
+            }
+        } else { // if there are no jobs in the list...
+            System.out.println("There are no results.");
+        }
     }
 }

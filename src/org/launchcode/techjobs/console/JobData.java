@@ -52,6 +52,7 @@ public class JobData {
         loadData();
 
         return allJobs;
+
     }
 
     /**
@@ -62,21 +63,58 @@ public class JobData {
      * with "Enterprise Holdings, Inc".
      *
      * @param column   Column that should be searched.
-     * @param value Value of teh field to search for
+     * @param value Value of the field to search for
      * @return List of all jobs matching the criteria
      */
+
+
+    // STEP 2: findByValue method searches all columns for a given value
+
+
+    public static ArrayList<HashMap<String, String>> findByValue(String value) {
+
+        // load data, if not already loaded
+        loadData();
+
+        //create variable to hold jobs
+        ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
+
+        for (HashMap<String, String> row : allJobs) {
+
+            String valueLookUp = row.toString().toLowerCase(); // makes sure it's lowercase
+
+            //iterate over all columns and add rows that contain value
+            if (valueLookUp.contains(value.toLowerCase())) {
+                    jobs.add(row);
+
+            /*
+            //a different way to do this:
+            // for (String column : row.keySet()) {
+                //if (row.get(column).toLowerCase().contains(value)) { // make it lowercase
+             */
+
+            }
+        }
+
+        return jobs;
+
+    }
+
+
+
     public static ArrayList<HashMap<String, String>> findByColumnAndValue(String column, String value) {
 
         // load data, if not already loaded
         loadData();
 
+
         ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
 
         for (HashMap<String, String> row : allJobs) {
 
-            String aValue = row.get(column);
+            String aValue = row.get(column).toLowerCase(); // STEP 3: make it lowercase here
 
-            if (aValue.contains(value)) {
+            if (aValue.contains(value.toLowerCase())) { // STEP 3: and make it lowercase here
                 jobs.add(row);
             }
         }
